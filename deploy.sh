@@ -20,5 +20,9 @@ fi
 mkdir -p $APP_DIR
 tar -xzf app-$COMMIT_ID.tar.gz -C $APP_DIR
 cd $APP_DIR
+
+# ???????????
+uv sync
+
 sudo systemctl restart fastapi
 echo "Deployment complete!"
