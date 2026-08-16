@@ -45,3 +45,12 @@ jobs:
       - name: Upload to S3
         run: |
           aws s3 cp build/app-${{ github.sha }}.tar.gz s3://fastapi-files-20260816/builds/app-${{ github.sha }}.tar.gz
+
+      - name: Deploy to staging
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.STAGING_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 13.196.191.135 >> ~/.ssh/known_hosts
+          ssh ec2-user@13.196.191.135 "/home/ec2-user/deploy.sh ${{ github.sha }}"
