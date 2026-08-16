@@ -17,9 +17,20 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install uv
           pip install uv pytest
           uv sync
 
       - name: Run tests
         run: pytest
+
+      - name: Build artifact
+        run: |
+          mkdir -p build
+          tar -czf build/app-${{ github.sha }}.tar.gz --exclude=.git --exclude=.venv --exclude=__pycache__ .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: fastapi-app
+          path: build/
+          retention-days: 7
