@@ -29,7 +29,7 @@ jobs:
           tar -czf build/app-${{ github.sha }}.tar.gz --exclude=.git --exclude=.venv --exclude=__pycache__ .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fastapi-app
           path: build/
