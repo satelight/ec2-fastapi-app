@@ -1,5 +1,6 @@
-﻿#!/bin/bash
+#!/bin/bash
 set -e
+
 BUCKET="fastapi-files-20260816"
 COMMIT_ID=$1
 APP_DIR="/home/ec2-user/fastapi-app"
